@@ -30,8 +30,6 @@ public class PostgreDB implements IDB {
 
             connection = DriverManager.getConnection(connectionUrl, user, password);
 
-            System.out.println("Connection established.");
-
             return connection;
         } catch (Exception e) {
             System.out.println("Connection failed: " + e.getMessage());
