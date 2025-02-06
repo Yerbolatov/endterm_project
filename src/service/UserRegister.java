@@ -1,9 +1,9 @@
-package repositories;
+package service;
 
 import data.interfaces.IDB;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import repositories.interfaces.iUserRegister;
+import service.interfaces.iUserRegister;
 
 import java.sql.*;
 
@@ -18,12 +18,14 @@ public class UserRegister implements iUserRegister {
     @Override
     public void registerUser(String username, String password) throws SQLException {
         String hashedPassword = passwordEncoder.encode(password);
+        String defaultRole = "user";
 
-        String query = "INSERT INTO users (username, passwordhash) VALUES (?, ?)";
+        String query = "INSERT INTO users (username, passwordhash, role) VALUES (?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, username);
             st.setString(2, hashedPassword);
+            st.setString(3, defaultRole);
             st.executeUpdate();
             System.out.println("User registered successfully!");
         } catch (SQLException e) {

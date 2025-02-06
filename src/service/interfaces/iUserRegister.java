@@ -1,4 +1,4 @@
-package repositories.interfaces;
+package service.interfaces;
 
 import java.sql.SQLException;
 

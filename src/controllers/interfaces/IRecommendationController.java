@@ -1,3 +1,4 @@
+
 package controllers.interfaces;
 
 import models.Recommendation;
@@ -7,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface IRecommendationController {
-    Recommendation createRecommendation(Long fromUserId, Long toUserId, Set<String> items);
-    List<Recommendation> getRecommendationsForUser(Long userId);
+    Recommendation createRecommendation(int fromUserId, int toUserId, Set<String> items);
+    List<Recommendation> getRecommendationsForUser(int userId);
 }
+
+

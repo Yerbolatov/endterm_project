@@ -1,9 +1,9 @@
-package repositories;
+package service;
 
 import data.interfaces.IDB;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import repositories.interfaces.iUserLogin;
+import service.interfaces.iUserLogin;
 
 import java.sql.*;
 

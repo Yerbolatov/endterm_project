@@ -1,9 +1,9 @@
 import data.PostgreDB;
 import data.interfaces.IDB;
-import repositories.UserLogin;
-import repositories.UserRegister;
-import repositories.interfaces.iUserLogin;
-import repositories.interfaces.iUserRegister;
+import service.UserLogin;
+import service.UserRegister;
+import service.interfaces.iUserLogin;
+import service.interfaces.iUserRegister;
 
 
 public class Main {
@@ -12,7 +12,7 @@ public class Main {
 
         iUserRegister register = new UserRegister(db);
         iUserLogin login = new UserLogin(db);
-        MyApp app = new MyApp(register, login);
+        MyApp app = new MyApp(register, login, db);
 
         app.start();
 
