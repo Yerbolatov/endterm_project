@@ -1,3 +1,4 @@
+
 package models;
 
 import jakarta.persistence.*;
@@ -8,7 +9,7 @@ import java.util.Set;
 public class Recommendation implements IRecommendation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne
     private User fromUser;
@@ -28,7 +29,7 @@ public class Recommendation implements IRecommendation {
     }
 
     @Override
-    public Long getId() {
+    public int getID() {
         return id;
     }
 
@@ -47,3 +48,4 @@ public class Recommendation implements IRecommendation {
         return recommendedItems;
     }
 }
+

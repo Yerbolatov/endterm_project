@@ -1,3 +1,4 @@
+
 package controllers;
 
 import controllers.interfaces.IRecommendationController;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/recommendations")
-public class RecommendationController implements IRecommendationController {
+public abstract class RecommendationController implements IRecommendationController {
     private final IRecommendationService recommendationService;
 
     public RecommendationController(IRecommendationService recommendationService) {
@@ -19,23 +20,25 @@ public class RecommendationController implements IRecommendationController {
     }
 
     @PostMapping("/create")
-    public Recommendation createRecommendation(@RequestParam Long fromUserId,
-                                               @RequestParam Long toUserId,
+    public Recommendation createRecommendation(@RequestParam int fromUserId,
+                                               @RequestParam int toUserId,
                                                @RequestBody Set<String> items) {
         User fromUser = new User();
-        fromUser.setId(fromUserId);
+        fromUser.setID(fromUserId);
 
         User toUser = new User();
-        toUser.setId(toUserId);
+        toUser.setID(toUserId);
 
         return recommendationService.createRecommendation(fromUser, toUser, items);
     }
 
     @GetMapping("/user/{userId}")
-    public List<Recommendation> getRecommendationsForUser(@PathVariable Long userId) {
+    public List<Recommendation> getRecommendationsForUser(@PathVariable int userId) {
         User user = new User();
-        user.setId(userId);
+        user.setID(userId);
 
         return recommendationService.getRecommendationsForUser(user);
     }
 }
+
+

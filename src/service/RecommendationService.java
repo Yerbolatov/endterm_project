@@ -1,3 +1,4 @@
+
 package service;
 
 import models.Recommendation;
@@ -27,3 +28,5 @@ public class RecommendationService implements IRecommendationService {
         return recommendationRepository.findByToUser(toUser);
     }
 }
+
+

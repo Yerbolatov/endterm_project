@@ -4,6 +4,9 @@ import controllers.interfaces.iAlbumController;
 
 import models.Album;
 import repositories.interfaces.iAlbumRepository;
+
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 public class AlbumController implements iAlbumController {
@@ -13,10 +16,19 @@ public class AlbumController implements iAlbumController {
         this.repo = repo;
     }
 
-    public String createAlbum(int artistId, String title, String releaseDate, String genre, double rating) {
-        Album album = new Album(0, artistId, title, releaseDate, genre, rating);
-        boolean created = repo.createAlbum(album);
-        return created ? "Album created" : "Album was not created";
+    public String createAlbum(int artistId, String title, String releaseDate, String genre) {
+        try {
+            LocalDate localDate = LocalDate.parse(releaseDate);
+
+            Date sqlDate = Date.valueOf(localDate);
+
+            Album album = new Album(0, artistId, title, sqlDate, genre);
+
+            boolean created = repo.createAlbum(album);
+            return created ? "Album created" : "Album was not created";
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
     public String getAlbum(int id) {

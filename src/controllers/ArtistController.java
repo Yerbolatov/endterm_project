@@ -23,6 +23,14 @@ public class ArtistController implements iArtistController {
         return artist == null ? "Artist was not found" : artist.toString();
     }
 
+    public int getArtistIdByName(String artistName) {
+        Artist artist = repo.getArtistByName(artistName);
+        if (artist != null) {
+            return artist.getId();
+        }
+        return -1;
+    }
+
     public List<Artist> getAllArtists() {
         return repo.getAllArtists();
     }

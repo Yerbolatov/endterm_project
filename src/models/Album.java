@@ -1,22 +1,22 @@
 package models;
 
+import java.sql.Date;
+
 public class Album {
     private int id;
     private int artistId;
     private String title;
-    private String releaseDate;
+    private Date releaseDate;
     private String genre;
-    private double rating;
 
     public Album() {}
 
-    public Album(int id, int artistId, String title, String releaseDate, String genre, double rating) {
+    public Album(int id, int artistId, String title, Date releaseDate, String genre) {
         this.id = id;
         this.artistId = artistId;
         this.title = title;
         this.releaseDate = releaseDate;
         this.genre = genre;
-        this.rating = rating;
     }
 
     public int getId() { return id; }
@@ -28,18 +28,15 @@ public class Album {
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 
-    public String getReleaseDate() { return releaseDate; }
-    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
+    public Date getReleaseDate() { return releaseDate; }
+    public void setReleaseDate(Date releaseDate) { this.releaseDate = releaseDate; }
 
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
 
-    public double getRating() { return rating; }
-    public void setRating(double rating) { this.rating = rating; }
-
     @Override
     public String toString() {
         return "Album{id=" + id + ", artistId=" + artistId + ", title='" + title + "', releaseDate='" + releaseDate +
-                "', genre='" + genre + "', rating=" + rating + "}";
+                "', genre='" + genre + "}";
     }
 }
