@@ -69,20 +69,26 @@ public class ArtistRepository implements iArtistRepository {
     }
 
     @Override
-    public Artist getArtistByName(String artistName) {
-        String query = "SELECT * FROM artists WHERE name = ?";
-        try (Connection connection = db.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
+    public Artist getArtistByName(String name) {
+        try (Connection connection = db.getConnection()) {
+            String sql = "SELECT * FROM artists WHERE name = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, name);
+                ResultSet resultSet = statement.executeQuery();
 
-            stmt.setString(1, artistName);
-            ResultSet rs = stmt.executeQuery();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String artistName = resultSet.getString("name");
+                    String country = resultSet.getString("country");
 
-            if (rs.next()) {
-                return new Artist(rs.getInt("id"), rs.getString("name"), rs.getString("country"));
+                    return new Artist(id, artistName, country);
+                } else {
+                    return null;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

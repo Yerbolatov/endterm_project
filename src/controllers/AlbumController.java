@@ -36,7 +36,20 @@ public class AlbumController implements iAlbumController {
         return album == null ? "Album was not found" : album.toString();
     }
 
+    public String getAlbumArtist(int artistId) {
+        Album album = repo.getAlbum(artistId);
+        return album == null ? "Artist was not found" : album.toString();
+    }
+
     public List<Album> getAllAlbums() {
         return repo.getAllAlbums();
+    }
+
+    public Album getAlbumByTitle(String title) {
+        return repo.getAlbumByTitle(title);
+    }
+
+    public String getArtistNameForAlbum(int artistId) {
+        return repo.getArtistNameById(artistId);
     }
 }

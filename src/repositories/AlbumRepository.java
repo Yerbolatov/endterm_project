@@ -77,4 +77,66 @@ public class AlbumRepository implements iAlbumRepository {
         }
         return albums;
     }
+
+    @Override
+    public int getAlbumIdByTitle(String title) {
+        String query = "SELECT id FROM albums WHERE title = ?";
+        try (Connection conn = db.getConnection();
+             PreparedStatement st = conn.prepareStatement(query)) {
+            st.setString(1, title);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public Album getAlbumByTitle(String title) {
+        try (Connection connection = db.getConnection()) {
+            String sql = "SELECT * FROM albums WHERE title = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, title);
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    int artistId = resultSet.getInt("artistid");
+                    String albumTitle = resultSet.getString("title");
+                    Date releaseDate = resultSet.getDate("releasedate");
+                    String genre = resultSet.getString("genre");
+
+                    return new Album(id, artistId, albumTitle, releaseDate, genre);
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String getArtistNameById(int artistId) {
+        try (Connection connection = db.getConnection()) {
+            String sql = "SELECT name FROM artists WHERE id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, artistId);
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    return resultSet.getString("name");
+                } else {
+                    return "Unknown Artist";
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Error fetching artist name";
+        }
+    }
 }

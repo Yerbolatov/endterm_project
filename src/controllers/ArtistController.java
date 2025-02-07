@@ -34,4 +34,8 @@ public class ArtistController implements iArtistController {
     public List<Artist> getAllArtists() {
         return repo.getAllArtists();
     }
+
+    public Artist getArtistByName(String name) {
+        return repo.getArtistByName(name);
+    }
 }

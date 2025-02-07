@@ -8,7 +8,7 @@ import service.interfaces.iUserRegister;
 
 public class Main {
     public static void main(String[] args) {
-        IDB db = new PostgreDB("jdbc:postgresql://localhost:5432", "postgres", "0000", "endterm");
+        IDB db = PostgreDB.getInstance("jdbc:postgresql://localhost:5432", "postgres", "0000", "endterm");
 
         iUserRegister register = new UserRegister(db);
         iUserLogin login = new UserLogin(db);

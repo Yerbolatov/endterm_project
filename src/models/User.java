@@ -1,25 +1,18 @@
 package models;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class User {
     private int id;
-    @Getter
-    @Setter
     private String username;
-    @Getter
-    @Setter
-    public String role;
 
-    public User() {}
+    public User() {
 
-    public User(String username, String role) {
-        setUsername(username);
-        setRole(role);
     }
-    public User(int id, String username, String role) {
-        this(username, role);
+
+    public User(String username) {
+        setUsername(username);
+    }
+    public User(int id, String username) {
+        this(username);
         setID(id);
     }
 
@@ -28,6 +21,13 @@ public class User {
     }
     public void setID(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override

@@ -8,5 +8,5 @@ public interface iArtistRepository {
     Artist getArtist(int id);
     List<Artist> getAllArtists();
 
-    Artist getArtistByName(String artistName);
+    Artist getArtistByName(String name);
 }
