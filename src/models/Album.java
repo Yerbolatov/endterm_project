@@ -8,6 +8,7 @@ public class Album {
     private String title;
     private Date releaseDate;
     private String genre;
+    private String artistName;
 
     public Album() {}
 
@@ -34,9 +35,12 @@ public class Album {
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
 
+    public String getArtistName() { return artistName; }
+    public void setArtistName(String artistName) { this.artistName = artistName; }
+
     @Override
     public String toString() {
         return "Album{id=" + id + ", artistId=" + artistId + ", title='" + title + "', releaseDate='" + releaseDate +
-                "', genre='" + genre + "}";
+                "', genre='" + genre + "', artistName='" + artistName + "'}";
     }
 }

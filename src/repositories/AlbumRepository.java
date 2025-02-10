@@ -121,22 +121,29 @@ public class AlbumRepository implements iAlbumRepository {
     }
 
     @Override
-    public String getArtistNameById(int artistId) {
-        try (Connection connection = db.getConnection()) {
-            String sql = "SELECT name FROM artists WHERE id = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, artistId);
-                ResultSet resultSet = statement.executeQuery();
+    public Album getAlbumWithArtistName(String title) {
+        String query = "SELECT a.id, a.artistid, a.title, a.releasedate, a.genre, ar.name as artist_name " +
+                "FROM albums a " +
+                "JOIN artists ar ON a.artistid = ar.id " +
+                "WHERE a.title = ?";
+        try (Connection connection = db.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
 
-                if (resultSet.next()) {
-                    return resultSet.getString("name");
-                } else {
-                    return "Unknown Artist";
-                }
+            stmt.setString(1, title);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Album album = new Album(rs.getInt("id"),
+                        rs.getInt("artistid"),
+                        rs.getString("title"),
+                        rs.getDate("releasedate"),
+                        rs.getString("genre"));
+                album.setArtistName(rs.getString("artist_name"));
+                return album;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return "Error fetching artist name";
         }
+        return null;
     }
 }

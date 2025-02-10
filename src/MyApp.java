@@ -227,14 +227,13 @@ public class MyApp {
             return;
         }
 
-        Album album = albumController.getAlbumByTitle(name);
+        Album album = albumController.getAlbumWithArtistName(name);
         if (album != null) {
             System.out.println("Album Details:");
             System.out.println("Title: " + album.getTitle());
             System.out.println("Genre: " + album.getGenre());
             System.out.println("Release Date: " + album.getReleaseDate());
-            String artistName = albumController.getArtistNameForAlbum(album.getArtistId());
-            System.out.println("Artist: " + artistName);
+            System.out.println("Artist: " + album.getArtistName());
             return;
         }
 
