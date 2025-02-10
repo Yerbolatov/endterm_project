@@ -49,7 +49,7 @@ public class AlbumController implements iAlbumController {
         return repo.getAlbumByTitle(title);
     }
 
-    public String getArtistNameForAlbum(int artistId) {
-        return repo.getArtistNameById(artistId);
+    public Album getAlbumWithArtistName(String title) {
+        return repo.getAlbumWithArtistName(title);
     }
 }

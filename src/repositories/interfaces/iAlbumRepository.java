@@ -11,5 +11,5 @@ public interface iAlbumRepository {
 
     Album getAlbumByTitle(String title);
 
-    String getArtistNameById(int artistId);
+    Album getAlbumWithArtistName(String title);
 }
