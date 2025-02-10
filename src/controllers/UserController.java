@@ -12,11 +12,12 @@ public class UserController implements iUserController {
     }
 
     public String createUser(String username) {
+        if (username == null || username.trim().isEmpty()) return "Username cannot be empty";
+        if (username.length() < 3) return "Username must be at least 3 characters long";
+
         User user = new User(username);
-
         boolean created = repo.createUser(user);
-
-        return (created ? "User created" : "User was not created");
+        return created ? "User created" : "User was not created";
     }
 
     public String getUser(int id) {

@@ -1,11 +1,12 @@
 package controllers.interfaces;
 
-import models.Album;
-import java.util.List;
+import models.Collection;
 
 public interface iCollectionController {
-    String addAlbumToCollection(int userId, Album album);
-    String removeAlbumFromCollection(int userId, int albumId);
-    List<Album> getUserCollection(int userId);
-    String findAlbumInCollection(int userId, String title);
+    String createCollection(int userId, String name);
+    String addAlbumToCollection(int collectionId, int albumId);
+    String addArtistToCollection(int collectionId, int artistId);
+    String removeAlbumFromCollection(int collectionId, int albumId);
+    String removeArtistFromCollection(int collectionId, int artistId);
+    Collection getCollection(int collectionId);
 }

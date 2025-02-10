@@ -1,10 +1,8 @@
 package controllers;
 
 import controllers.interfaces.iCollectionController;
-import models.Album;
+import models.Collection;
 import repositories.interfaces.iCollectionRepository;
-import java.util.List;
-import java.util.Optional;
 
 public class CollectionController implements iCollectionController {
     private final iCollectionRepository repo;
@@ -13,26 +11,45 @@ public class CollectionController implements iCollectionController {
         this.repo = repo;
     }
 
-    @Override
-    public String addAlbumToCollection(int userId, Album album) {
-        boolean added = repo.addAlbumToCollection(userId, album);
+    public String createCollection(int userId, String name) {
+        if (userId <= 0) return "Invalid user ID";
+        if (name == null || name.trim().isEmpty()) return "Collection name cannot be empty";
+
+        boolean created = repo.createCollection(userId, name);
+        return created ? "Collection created" : "Collection was not created";
+    }
+
+    public String addAlbumToCollection(int collectionId, int albumId) {
+        if (collectionId <= 0 || albumId <= 0) return "Invalid collection or album ID";
+
+        boolean added = repo.addAlbumToCollection(collectionId, albumId);
         return added ? "Album added to collection" : "Failed to add album";
     }
 
-    @Override
-    public String removeAlbumFromCollection(int userId, int albumId) {
-        boolean removed = repo.removeAlbumFromCollection(userId, albumId);
-        return removed ? "Album removed from collection" : "Album not found in collection";
+    public String addArtistToCollection(int collectionId, int artistId) {
+        if (collectionId <= 0 || artistId <= 0) return "Invalid collection or artist ID";
+
+        boolean added = repo.addArtistToCollection(collectionId, artistId);
+        return added ? "Artist added to collection" : "Failed to add artist";
     }
 
-    @Override
-    public List<Album> getUserCollection(int userId) {
-        return repo.getUserCollection(userId);
+    public String removeAlbumFromCollection(int collectionId, int albumId) {
+        if (collectionId <= 0 || albumId <= 0) return "Invalid collection or album ID";
+
+        boolean removed = repo.removeAlbumFromCollection(collectionId, albumId);
+        return removed ? "Album removed from collection" : "Failed to remove album";
     }
 
-    @Override
-    public String findAlbumInCollection(int userId, String title) {
-        Optional<Album> album = repo.findAlbumInCollection(userId, title);
-        return album.map(Album::toString).orElse("Album not found in collection");
+    public String removeArtistFromCollection(int collectionId, int artistId) {
+        if (collectionId <= 0 || artistId <= 0) return "Invalid collection or artist ID";
+
+        boolean removed = repo.removeArtistFromCollection(collectionId, artistId);
+        return removed ? "Artist removed from collection" : "Failed to remove artist";
+    }
+
+    public Collection getCollection(int collectionId) {
+        if (collectionId <= 0) return null;
+
+        return repo.getCollection(collectionId);
     }
 }
